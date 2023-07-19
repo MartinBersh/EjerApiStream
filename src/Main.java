@@ -1,41 +1,48 @@
+import domain.enumm.ProductCategory;
 import domain.initializer.DataInitializer;
 import domain.models.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ConsoleMenu {
+public class Main {
 
     public static void main(String[] args) {
         Order order = DataInitializer.initializeOrder();
+        List<Product> products = DataInitializer.initializeProducts();
+        List<Customer> customers =  DataInitializer.initializeCustomer();
+        List<Order> orders = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         int option = 0;
 
         while (option != 4) {
-            System.out.println("----- Menu -----");
-            System.out.println("1. Mostrar detalles del pedido");
-            System.out.println("2. Mostrar productos del pedido");
-            System.out.println("3. Mostrar detalles del cliente");
-            System.out.println("4. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.println("Menú");
+            System.out.println("1. Order");
+            System.out.println("2. Products");
+            System.out.println("3. Customer");
+            System.out.println("4. Productos filtrados por categoria y precio");
+            System.out.println("5. Exit");
+            System.out.print("Option: ");
             option = scanner.nextInt();
 
             switch (option) {
                 case 1:
-                    displayOrderDetails(order);
+                    displayOrder(order);
                     break;
                 case 2:
-                    displayOrderProducts(order);
+                    displayProducts(order);
                     break;
                 case 3:
-                    displayCustomerDetails(order.customer);
+                    displayCustomer(order.getCustomer());
                     break;
-                case 4:
-                    System.out.println("¡Hasta luego!");
+                case 4: getFilteredProducts(products);
+                case 10:
+                    System.out.println("Thank you, bye.");
                     break;
                 default:
-                    System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+                    System.out.println("Invalid option.");
                     break;
             }
         }
@@ -43,30 +50,47 @@ public class ConsoleMenu {
         scanner.close();
     }
 
-    public static void displayOrderDetails(Order order) {
-        System.out.println("Detalles del pedido:");
-        System.out.println("ID: " + order.id);
-        System.out.println("Estado: " + order.status);
-        System.out.println("Fecha de pedido: " + order.orderDate);
-        System.out.println("Fecha de entrega: " + order.deliveryDate);
+    private static List<Product> getFilteredProducts(List<Product> products) {
+        String categoria ="libros";
+        return products.stream()
+                .filter(e->e.getCategory().equals(ProductCategory.fromValue(categoria)))
+                .filter(e->e.getPrice()>100)
+                .toList();
+
     }
 
-    public static void displayOrderProducts(Order order) {
-        List<Product> products = order.products;
-        System.out.println("Productos del pedido:");
+    public static void displayOrder(Order order) {
+
+        System.out.println("------------------------");
+        System.out.println("Order:");
+        System.out.println("ID: " + order.getId());
+        System.out.println("Status: " + order.getStatus());
+        System.out.println("Order Date: " + order.getOrderDate());
+        System.out.println("Delivery Date: " + order.getDeliveryDate());
+        System.out.println("------------------------");
+
+    }
+
+    public static void displayProducts(Order order) {
+        List<Product> products = order.getProducts();
+        System.out.println("Order Products:");
         for (Product product : products) {
-            System.out.println("ID: " + product.id);
-            System.out.println("Nombre: " + product.name);
-            System.out.println("Categoría: " + product.category);
-            System.out.println("Precio: " + product.price);
+            System.out.println("------------------------");
+            System.out.println("ID: " + product.getId());
+            System.out.println("Name: " + product.getName());
+            System.out.println("Category: " + product.getCategory());
+            System.out.println("Price: " + product.getPrice());
             System.out.println("------------------------");
         }
     }
 
-    public static void displayCustomerDetails(Customer customer) {
-        System.out.println("Detalles del cliente:");
-        System.out.println("ID: " + customer.id);
-        System.out.println("Nombre: " + customer.name);
-        System.out.println("Nivel: " + customer.tier);
+    public static void displayCustomer(Customer customer) {
+        System.out.println("------------------------");
+        System.out.println("Customer:");
+        System.out.println("ID: " + customer.getId());
+        System.out.println("Name: " + customer.getName());
+        System.out.println("Tier: " + customer.getTier());
+        System.out.println("------------------------");
+
     }
 }
