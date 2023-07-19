@@ -12,7 +12,7 @@ public class Main {
         Order order = DataInitializer.initializeOrder();
         List<Product> products = DataInitializer.initializeProducts();
         List<Customer> customers =  DataInitializer.initializeCustomer();
-        List<Order> orders = new ArrayList<>();
+        List<Order> orders = (List<Order>) DataInitializer.initializeOrder();
 
         Scanner scanner = new Scanner(System.in);
         int option = 0;
@@ -35,7 +35,7 @@ public class Main {
                     displayProducts(order);
                     break;
                 case 3:
-                    displayCustomer(order.getCustomer());
+                    displayCustomer((Customer) orders);
                     break;
                 case 4: getFilteredProducts(products);
                 case 10:
