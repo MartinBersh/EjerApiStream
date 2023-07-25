@@ -11,8 +11,6 @@ public class Order {
     private LocalDate deliveryDate;
     private List<Product> products;
     private List<Customer> customer;
-    private List<Order> orders;
-
     public Long getId() {
         return id;
     }
@@ -65,11 +63,26 @@ public class Order {
         this.customer = customer;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+
+    public Order(Long id, String status, LocalDate orderDate, LocalDate deliveryDate, List<Product> products, List<Customer> customer) {
+        this.id = id;
+        this.status = status;
+        this.orderDate = orderDate;
+        this.deliveryDate = deliveryDate;
+        this.products = products;
+        this.customer = customer;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", orderDate=" + orderDate +
+                ", deliveryDate=" + deliveryDate +
+                ", products=" + products +
+                ", customer=" + customer +
+                '}';
     }
+
 }

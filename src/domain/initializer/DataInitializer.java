@@ -10,40 +10,24 @@ public class DataInitializer {
 
     public static Order initializeOrder() {
 
-        Order order = new Order();
-        order.setId(1L);
-        order.setStatus("Waiting");;
-        order.setOrderDate(LocalDate.now());
-        order.setDeliveryDate(LocalDate.now().plusDays(7)) ;
-        order.setProducts(initializeProducts());
-        order.setCustomer(initializeCustomer()) ;
-
+        Order order = new Order(1L, "Waiting", LocalDate.now(),LocalDate.now().plusDays(7), initializeProducts(),initializeCustomer());
         return order;
     }
 
     public static List<Product> initializeProducts() {
         List<Product> products = new ArrayList<>();
 
-        Product product1 = new Product();
-        product1.setId(1L);
-        product1.setName("La biblia");
-        product1.setCategory(ProductCategory.LIBROS);
-        product1.setPrice(50000.5);
+        Product product1 = new Product(1L, "La biblia", ProductCategory.BOOKS, 50000.0);
         products.add(product1);
 
-        Product product2 = new Product();
-        product2.setId(2L);
-        product2.setName("Don quijote");
-        product2.setCategory(ProductCategory.LIBROS);
-        product2.setPrice(65000.4);
+        Product product2 = new Product(2L, "Don Quijote", ProductCategory.BOOKS,65000.0);
         products.add(product2);
 
-        Product product3 = new Product();
-        product3.setId(3L);
-        product3.setName("Tetero");
-        product3.setCategory(ProductCategory.BEBE);
-        product3.setPrice(100000.0);
+        Product product3 = new Product(3L,"Tetero", ProductCategory.BABY,100000.0);
         products.add(product3);
+
+        Product product4 = new Product(4L,"Barbie",ProductCategory.TOYS,40000.0);
+        products.add(product4);
 
         return products;
     }
@@ -52,16 +36,13 @@ public class DataInitializer {
 
         List<Customer> customers = new ArrayList<>();
 
-        Customer customer1 = new Customer();
-        customer1.setId(1L);
-        customer1.setName("Martin Villegas");
-        customer1.setTier(ClientTier.TYPE1);
+        Customer customer1 = new Customer(1L, "Martin Villegas", ClientTier.TYPE1 );
+        customers.add(customer1);
 
+        Customer customer2 = new Customer(2L, "Juan felpe", ClientTier.TYPE2);
+        customers.add(customer2);
+        Customer customer3 = new Customer(3L, "Ricardo Daniel", ClientTier.TYPE3);
 
-        Customer customer2 = new Customer();
-        customer2.setId(2L);
-        customer2.setName("Felpe Rojas");
-        customer2.setTier(ClientTier.TYPE2);
 
 
         return customers;

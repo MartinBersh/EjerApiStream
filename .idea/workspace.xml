@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b177146-17dd-40c3-8062-44d49e618e8d" name="Changes" comment="">
+    <list default="true" id="1b177146-17dd-40c3-8062-44d49e618e8d" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/domain/enumm/ClientTier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/enumm/ClientTier.java" afterDir="false" />
@@ -63,11 +63,31 @@
       <option name="presentableId" value="Default" />
       <updated>1689719440542</updated>
       <workItem from="1689719441861" duration="4703000" />
-      <workItem from="1689768529749" duration="5959000" />
+      <workItem from="1689768529749" duration="7134000" />
+      <workItem from="1690247857878" duration="11404000" />
     </task>
+    <task id="LOCAL-00001" summary="commit">
+      <created>1689774526139</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1689774526139</updated>
+    </task>
+    <task id="LOCAL-00002" summary="commit">
+      <created>1689774808904</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1689774808904</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
 </project>

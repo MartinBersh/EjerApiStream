@@ -10,7 +10,6 @@ public class Customer {
     private Long id;
     private String name;
     private ClientTier tier;
-    private List<Customer> customers;
 
     public Long getId() {
         return id;
@@ -34,5 +33,19 @@ public class Customer {
 
     public void setTier(ClientTier tier) {
         this.tier = tier;
+    }
+
+    public Customer(Long id, String name, ClientTier tier) {
+        this.id = id;
+        this.name = name;
+        this.tier = tier;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", tier=" + tier;
     }
 }

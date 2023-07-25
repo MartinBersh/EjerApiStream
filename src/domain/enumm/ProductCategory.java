@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 public enum ProductCategory {
 
-    LIBROS("libros"),
-    BEBE("bebe"),
-    JUGUETES("juguetes");
+    BOOKS("libros"),
+    BABY("bebe"),
+    TOYS("juguetes");
 
     private final String value;
 

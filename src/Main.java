@@ -2,42 +2,43 @@ import domain.enumm.ProductCategory;
 import domain.initializer.DataInitializer;
 import domain.models.*;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) {
-        Order order = DataInitializer.initializeOrder();
         List<Product> products = DataInitializer.initializeProducts();
-        List<Customer> customers =  DataInitializer.initializeCustomer();
-        List<Order> orders = (List<Order>) DataInitializer.initializeOrder();
+
 
         Scanner scanner = new Scanner(System.in);
         int option = 0;
 
         while (option != 4) {
             System.out.println("Menú");
-            System.out.println("1. Order");
-            System.out.println("2. Products");
-            System.out.println("3. Customer");
-            System.out.println("4. Productos filtrados por categoria y precio");
+            System.out.println("1. Productos filtrados por Libros y precio menor a 100.000");
+            System.out.println("2. Productos filtrados por categoria: Bebé");
+            System.out.println("3. Productos filtrados por categoria: Juguetes (10% descuento)");
+            System.out.println("4. Filtrar el libro más barato del catálogo");
             System.out.println("5. Exit");
             System.out.print("Option: ");
             option = scanner.nextInt();
 
             switch (option) {
-                case 1:
-                    displayOrder(order);
-                    break;
-                case 2:
-                    displayProducts(order);
-                    break;
-                case 3:
-                    displayCustomer((Customer) orders);
-                    break;
-                case 4: getFilteredProducts(products);
+                case 1: getFilteredProductsBooks(products);
+                break;
+
+                case 2: getFilteredProductsBaby(products);
+                break;
+
+                case 3: getFilteredProductsToys(products);
+                break;
+
+                case 4: getCheapestBook(products);
+                break;
+
                 case 10:
                     System.out.println("Thank you, bye.");
                     break;
@@ -50,47 +51,67 @@ public class Main {
         scanner.close();
     }
 
-    private static List<Product> getFilteredProducts(List<Product> products) {
-        String categoria ="libros";
-        return products.stream()
-                .filter(e->e.getCategory().equals(ProductCategory.fromValue(categoria)))
+    private static List<Product> getFilteredProductsBooks(List<Product> products) {
+        String category ="libros";
+        List<Product> filteredProducts =  products.stream()
+                .filter(e->e.getCategory().equals(ProductCategory.fromValue(category)))
                 .filter(e->e.getPrice()>100)
                 .toList();
-
-    }
-
-    public static void displayOrder(Order order) {
-
-        System.out.println("------------------------");
-        System.out.println("Order:");
-        System.out.println("ID: " + order.getId());
-        System.out.println("Status: " + order.getStatus());
-        System.out.println("Order Date: " + order.getOrderDate());
-        System.out.println("Delivery Date: " + order.getDeliveryDate());
-        System.out.println("------------------------");
-
-    }
-
-    public static void displayProducts(Order order) {
-        List<Product> products = order.getProducts();
-        System.out.println("Order Products:");
-        for (Product product : products) {
-            System.out.println("------------------------");
-            System.out.println("ID: " + product.getId());
-            System.out.println("Name: " + product.getName());
-            System.out.println("Category: " + product.getCategory());
-            System.out.println("Price: " + product.getPrice());
-            System.out.println("------------------------");
+        for (Product product : filteredProducts) {
+            System.out.println(product);
         }
-    }
 
-    public static void displayCustomer(Customer customer) {
-        System.out.println("------------------------");
-        System.out.println("Customer:");
-        System.out.println("ID: " + customer.getId());
-        System.out.println("Name: " + customer.getName());
-        System.out.println("Tier: " + customer.getTier());
-        System.out.println("------------------------");
+        return filteredProducts;
 
     }
+
+    private static List<Product> getFilteredProductsBaby(List<Product> products){
+        String category = "bebe";
+
+        List<Product> filteredProducts = products.stream()
+                .filter(e->e.getCategory().equals(ProductCategory.fromValue(category)))
+                .toList();
+
+        for (Product product : filteredProducts) {
+            System.out.println(product);
+        }
+
+        return filteredProducts;
+    }
+
+    private static List<Product> getFilteredProductsToys(List<Product> products){
+        String category = "juguetes";
+        List<Product> filteredProducts = products.stream()
+                .filter(e->e.getCategory().equals(ProductCategory.fromValue(category)))
+                .map(e -> new Product(e.getId(), e.getName(), e.getCategory(), applyDiscount(e.getPrice())))
+                .collect(Collectors.toList());
+
+        for (Product product : filteredProducts) {
+            System.out.println(product);
+        }
+
+        return filteredProducts;
+
+    }
+
+    private static double applyDiscount(double price){
+        double discount = 0.1;
+        return price - (price * discount);
+    }
+
+    private static List<Product> getCheapestBook(List<Product> products){
+        String category = "libros";
+        List<Product> filteredProducts = products.stream()
+                .filter(e->e.getCategory().equals(ProductCategory.fromValue(category)))
+                .min(Comparator.comparingDouble(Product::getPrice))
+                .stream().toList();
+
+        for (Product product : filteredProducts) {
+            System.out.println(product);
+        }
+
+        return  filteredProducts;
+
+    }
+
 }
